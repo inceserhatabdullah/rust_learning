@@ -36,3 +36,34 @@ impl Rectangle {
         Self { width, height }
     }
 }
+
+#[derive(Debug)]
+pub enum Message {
+    Write(String),
+}
+
+impl Message {
+    pub fn call(&self) {
+        println!("{self:#?}")
+    }
+}
+
+#[derive(Debug)]
+pub enum State {
+    Alabama,
+    Alaska,
+}
+
+pub enum Coin {
+    Quarter(State),
+    Penny,
+}
+
+impl State {
+    pub fn existed_in(&self, year: u16) -> bool {
+        match self {
+            State::Alabama => year >= 1819,
+            State::Alaska => year >= 1959,
+        }
+    }
+}
