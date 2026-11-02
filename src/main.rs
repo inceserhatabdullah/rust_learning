@@ -1,3 +1,7 @@
+mod modules;
+
 fn main() {
-    println!("hello world!");
+    println!("welcome to rust learning!");
+
+    modules::query::execute();
 }
