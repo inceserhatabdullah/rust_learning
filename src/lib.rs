@@ -13,7 +13,7 @@ pub struct User {
 
 impl Drop for User {
     fn drop(&mut self) {
-        println!("{self:#?} is being dropped!");
+        //println!("{self:#?} is being dropped!");
     }
 }
 
