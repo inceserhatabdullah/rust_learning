@@ -2,6 +2,9 @@
 name = "rust_learning"
 version = "0.1.0"
 edition = "2024"
+# run main.rs
+default-run="rust_learning"
+
 
 [dependencies]
 rand = "0.10.1"
