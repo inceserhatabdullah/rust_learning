@@ -1,4 +1,7 @@
-use std::fmt::{self, Display, write};
+use std::{
+    fmt::{self, Display},
+    fs,
+};
 
 #[derive(Debug)]
 pub enum ConditionTypes {
@@ -117,3 +120,84 @@ pub fn notify(item: &(impl Summary + Display)) {
     }
 
 */
+
+#[derive(Debug)]
+pub struct ArgsConfig {
+    pub query: String,
+    pub filepath: String,
+    pub ignore_case: bool,
+}
+
+impl ArgsConfig {
+    pub fn builds(args: &[String]) -> Result<ArgsConfig, &'static str> {
+        if args.len() < 3 {
+            return Err("not enough arguments");
+        }
+
+        Ok(ArgsConfig {
+            query: args[1].clone(),
+            filepath: args[2].clone(),
+            ignore_case: std::env::var("IGNORE_CASE").is_ok(),
+        })
+    }
+}
+
+pub fn args_run(args_config: ArgsConfig) -> Result<(), Box<dyn std::error::Error>> {
+    let content = fs::read_to_string(args_config.filepath)?;
+
+    println!("File Full Content: {content}");
+
+    let results = if args_config.ignore_case {
+        search_case_insensitive(&args_config.query, &content)
+    } else {
+        search(&args_config.query, &content)
+    };
+
+    for line in results {
+        println!("Searched Lines: {line}");
+    }
+
+    Ok(())
+}
+
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    let mut result = Vec::new();
+
+    for line in contents.lines() {
+        if line.contains(query) {
+            result.push(line);
+        }
+    }
+
+    result
+}
+
+pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    let query = query.to_lowercase();
+
+    let mut result = Vec::new();
+
+    for line in contents.lines() {
+        if line.to_lowercase().contains(&query) {
+            result.push(line);
+        }
+    }
+
+    result
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_result() {
+        let query = "duct";
+        let contents = "\
+            Rust:
+safe, fast, productive
+            Pick three.";
+
+        assert_eq!(vec!["safe, fast, productive"], search(query, contents));
+    }
+}
