@@ -3,6 +3,17 @@
 version = 4
 
 [[package]]
+name = "adder"
+version = "0.1.0"
+dependencies = [
+ "adder_one",
+]
+
+[[package]]
+name = "adder_one"
+version = "0.1.0"
+
+[[package]]
 name = "cfg-if"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"

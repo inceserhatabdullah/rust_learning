@@ -9,3 +9,7 @@ default-run="rust_learning"
 [dependencies]
 rand = "0.10.1"
 database={path = "database"}
+
+[workspace]
+resolver="1"
+members=["adder", "adder_one"]

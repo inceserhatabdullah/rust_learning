@@ -92,7 +92,16 @@ fn find() -> Option<i32> {
     numbers.iter().find(|&&x| x > 2).copied()
 }
 
-/* fn find<'a>(numbers: &'a [i32]) -> Option<&'a i32> {
+/// find a value from given vector
+///
+/// # Examples
+///
+/// ```
+/// let numbers = vec![1, 3, 5];
+/// let found = find(&numbers);
+///
+/// println!("{found:#?}");
+/// ```
+fn find_by_args<'a>(numbers: &'a [i32]) -> Option<&'a i32> {
     numbers.iter().find(|&&x| x > 2)
 }
- */
