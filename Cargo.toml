@@ -9,6 +9,7 @@ default-run="rust_learning"
 [dependencies]
 rand = "0.10.1"
 database={path = "database"}
+trpl = "0.3.0"
 
 [workspace]
 resolver="1"

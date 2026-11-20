@@ -1,5 +1,6 @@
 [alias]
 ch_4 = "run --bin ch_4"
+ch_17 = "run --bin ch_17"
 ch_13 = "run --bin ch_13"
 ch_12 = "run --bin ch_12"
 game = "run --bin game"
